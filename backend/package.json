@@ -1,23 +1,28 @@
 {
-    "name": "backend",
-    "private": true,
-    "version": "0,0,0",
-    "scripts": {
-        "dev": "ts-node-dev --rs ./src/index.ts",
-        "build": "rimraf ./dist && tsc --build ./tsconfig.json",
-        "start": "node ./dist/index.js"
-    },
-    "dependencies": {
-        "@trpc/server": "^10.45.2",
-        "express": "^4.21.2"
-    },
-    "devDependencies": {
-        "@types/express": "^5.0.0",
-        "@types/node": "^22.10.10",
-        "prettier": "^3.4.2",
-        "rimraf": "^6.0.1",
-        "ts-node": "^10.9.2",
-        "ts-node-dev": "^2.0.0",
-        "typescript": "^5.7.3"
-    }
+  "name": "@home/backend",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "ts-node-dev --rs ./src/index.ts",
+    "build": "rimraf ./dist && tsc --build ./tsconfig.json",
+    "start": "node ./dist/index.js",
+    "types": "tsc --noEmit --project ./tsconfig.json",
+    "prettify": "prettier --log-level warn --ignore-path './.prettierignore --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}'"
+  },
+  "dependencies": {
+    "@trpc/server": "^10.45.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.10",
+    "glob": "^11.0.1",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3"
+  }
 }

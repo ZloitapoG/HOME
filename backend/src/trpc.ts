@@ -10,7 +10,8 @@ const trpc = initTRPC.create()
 
 export const trpcRouter = trpc.router({
   getNews: trpc.procedure.query(() => {
+    //throw new Error('Test error')
     return { news }
   }),
 })
-export type trpcRouter = typeof trpcRouter
+export type TrpcRouter = typeof trpcRouter
