@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json",
+    "types": "tsc --noEmit --project ./tsconfig.app.json && tsc --noEmit --project ./tsconfig.node.json",
     "prettify": "prettier --log-level warn --ignore-path './.prettierignore --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}'"
   },
   "dependencies": {
@@ -16,11 +16,9 @@
     "@tanstack/react-query": "^4.18.0",
     "@trpc/client": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
-    "glob": "^7.2.3",
     "inflight": "^1.0.6",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "rimraf": "^2.7.1"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

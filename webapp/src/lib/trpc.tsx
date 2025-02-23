@@ -13,18 +13,18 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
     },
   },
-});
+})
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: 'http://localhost:3000/trpc',
     }),
   ],
-});
+})
 export const TrpcProvider = ({ children }: { children: React.ReactNode }) => {
-    return (
+  return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-        </trpc.Provider>    
-    )
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </trpc.Provider>
+  )
 }

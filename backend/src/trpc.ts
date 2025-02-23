@@ -6,6 +6,7 @@ const news = [
   { nick: 'build news 4', name: 'Новость 4', description: 'Описание 4' },
   { nick: 'build news 5', name: 'Новость 5', description: 'Описание 5' },
 ]
+
 const trpc = initTRPC.create()
 
 export const trpcRouter = trpc.router({
