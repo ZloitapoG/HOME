@@ -8,6 +8,7 @@ const news = [
 ]
 
 const trpc = initTRPC.create()
+//if (true) console.log(213);
 
 export const trpcRouter = trpc.router({
   getNews: trpc.procedure.query(() => {
