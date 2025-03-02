@@ -1,14 +1,15 @@
 {
   "name": "@home/backend",
   "private": true,
+  "type": "module",
   "version": "0.0.0",
   "scripts": {
     "dev": "ts-node-dev --rs ./src/index.ts",
     "build": "rimraf ./dist && tsc --build ./tsconfig.json",
     "start": "node ./dist/index.js",
     "types": "tsc --noEmit --project ./tsconfig.json",
-    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts .",
-    "prettify": "prettier --log-level warn --ignore-path './.prettierignore --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}'"
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache .",
+    "prettify": "prettier --log-level warn --ignore-path  ./.prettierignore --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}'"
   },
   "dependencies": {
     "@trpc/server": "^10.45.2",
@@ -18,6 +19,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.10.10"
+    "@types/node": "^22.10.10",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "eslint": "^9.20.1",
+    "prettier": "^3.5.1"
   }
 }
