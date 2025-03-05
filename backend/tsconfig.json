@@ -1,7 +1,8 @@
 {
   "ts-node": {
     "files": true,
-    "transpileOnly": true
+    "transpileOnly": true,
+    "esm": true
   },
   "compilerOptions": {
     "outDir": "./dist",
@@ -19,9 +20,9 @@
     "inlineSources": true,
     "isolatedModules": false,
     "lib": ["ES2021"],
-    "module": "commonjs",
-    "moduleResolution": "Node",
-    "target": "ES2021"
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "target": "ESNext"
   },
   "include": ["src"]
 }
