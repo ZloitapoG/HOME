@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+import { getViewNewsPageRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
 export const AllTextPage = () => {
@@ -15,7 +17,9 @@ export const AllTextPage = () => {
       {data.news.map((text) => {
         return (
           <div key={text.nick}>
-            <h2>{text.name}</h2>
+            <h2>
+              <Link to={getViewNewsPageRoute({ home: text.nick })}>{text.name}</Link>
+            </h2>
             <p>{text.description}</p>
           </div>
         )

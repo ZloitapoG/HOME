@@ -8,7 +8,7 @@
     "build": "rimraf ./dist && tsc --build ./tsconfig.json",
     "start": "node ./dist/index.js",
     "types": "tsc --noEmit --project ./tsconfig.json",
-    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache .",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache . --fix",
     "prettify": "prettier --log-level warn --ignore-path  ./.prettierignore --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}'"
   },
   "dependencies": {
@@ -23,7 +23,6 @@
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
     "eslint": "^9.20.1",
-    "nodemon": "^3.1.9",
     "prettier": "^3.5.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
