@@ -1,18 +1,30 @@
 import { initTRPC } from '@trpc/server'
-const news = [
-  { nick: 'build-news-1', name: 'Новость 1', description: 'Описание 1' },
-  { nick: 'build-news-2', name: 'Новость 2', description: 'Описание 2' },
-  { nick: 'build-news-3', name: 'Новость 3', description: 'Описание 3' },
-  { nick: 'build-news-4', name: 'Новость 4', description: 'Описание 4' },
-  { nick: 'build-news-5', name: 'Новость 5', description: 'Описание 5' },
-]
+import _ from 'lodash'
+import { z } from 'zod'
+
+const news = _.times(100, (i) => ({
+  nick: `build-news-${i}`,
+  name: `Новость ${i}`,
+  description: `Описание ${i}`,
+  text: _.times(100, (j) => `<p>Text paragraph ${j} for news ${i}...</p>`).join(''),
+}))
 
 const trpc = initTRPC.create()
 
 export const trpcRouter = trpc.router({
   getNews: trpc.procedure.query(() => {
     //throw new Error('Test error')
-    return { news }
+    return { news: news.map((text) => _.pick(text, ['nick', 'name', 'description'])) }
   }),
+  getText: trpc.procedure
+    .input(
+      z.object({
+        home: z.string(),
+      })
+    )
+    .query(({ input }) => {
+      const text = news.find((text) => text.nick === input.home)
+      return { text: text || null }
+    }),
 })
 export type TrpcRouter = typeof trpcRouter
