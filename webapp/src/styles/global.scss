@@ -1,0 +1,36 @@
+// Подключаем библиотеку reset-css для сброса стилей по умолчанию
+@use '../../node_modules/reset-css/sass/_reset.scss';
+
+// Подключаем файл с переменными из текущей директории
+@use './_vars' as *; // Переменные (например, цвета, шрифты и т.д.)
+
+// Стили для html, body и корневого элемента (#root)
+html,
+body,
+#root {
+  height: 100%; // Занимаем всю доступную высоту
+  min-height: 100%; // Минимальная высота также 100%
+  width: 100%; // Занимаем всю доступную ширину
+  position: relative; // Устанавливаем относительное позиционирование
+}
+
+// Стили для body
+body {
+  font-family: $defaultFontFamily; // Используем шрифт по умолчанию
+  font-size: $defaultFontSize; // Используем размер шрифта по умолчанию
+  background: $defaultBackgroundColor; // Используем цвет фона по умолчанию
+  color: $defaultTextColor; // Используем цвет текста по умолчанию
+  line-height: $defaultLineHeight; // Используем высоту строки по умолчанию
+}
+
+// Глобальные стили для всех элементов и их псевдоэлементов
+*,
+*:before,
+*:after {
+  box-sizing: border-box; // Устанавливаем box-sizing: border-box для всех элементов
+}
+
+// Стили для ссылок
+a {
+  text-decoration: none; // Убираем подчеркивание у ссылок
+}

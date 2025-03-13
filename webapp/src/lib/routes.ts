@@ -7,6 +7,8 @@ export const viewNewsRouteParams = getRouteParams({ home: true })
 export type ViewNewsRouteParams = typeof viewNewsRouteParams
 export const getViewNewsPageRoute = ({ home }: ViewNewsRouteParams) => `/news/${home}`
 
+export const getNewTextRoute = () => '/news/new'
+
 //export const viewNewsRouteParams = { home: ':home' }
 //export type ViewNewsRouteParams = { home: string }
 //export const getViewNewsPageRoute = ({ home }: { home: string }) => `/news/${home}`
