@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import { Segment } from '../../components/Segment'
 import { type ViewNewsRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
@@ -21,10 +22,8 @@ export const ViewNewsPage = () => {
   }
 
   return (
-    <div>
-      <h1 className={css.title}>{data.text.name}</h1>
-      <p className={css.description}>{data.text.description}</p>
+    <Segment title={data.text.name} description={data.text.description}>
       <div className={css.text} dangerouslySetInnerHTML={{ __html: data.text.text }} />
-    </div>
+    </Segment>
   )
 }
