@@ -1,5 +1,5 @@
 // Подключаем библиотеку include-media для удобной работы с медиазапросами
-@use 'include-media';
+@use '../../../node_modules/include-media/dist/include-media';
 
 // Подключаем файл с переменными и миксинами из указанных путей
 @use '../../styles/vars' as *; // Переменные
