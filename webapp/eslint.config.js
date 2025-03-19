@@ -1,5 +1,5 @@
 // Импорт базовой конфигурации ESLint из корневого файла
-import baseConfig from '../eslint.config.js';
+import baseConfig from '../eslint.config.js'
 
 /**
  * @type {import('eslint').Linter.Config[]}
@@ -63,4 +63,4 @@ export default [
       },
     },
   },
-];
+]
