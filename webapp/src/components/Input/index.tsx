@@ -1,16 +1,18 @@
+import { FormikProps } from 'formik'
+
 export const Input = ({
   name,
   label,
-  state,
-  setState,
+  formik,
 }: {
   name: string
   label: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  state: Record<string, any>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setState: React.Dispatch<any>
+  formik: FormikProps<any>
 }) => {
+  const value = formik.values[name]
+  const error = formik.errors[name] as string | undefined
+  const touched = formik.touched[name]
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor={name}>{label}</label>
@@ -18,12 +20,16 @@ export const Input = ({
       <input
         type="text"
         onChange={(e) => {
-          setState({ ...state, [name]: e.target.value })
+          void formik.setFieldValue(name, e.target.value)
         }}
-        value={state[name]}
+        onBlur={() => {
+          void formik.setFieldTouched(name)
+        }}
+        value={value}
         name={name}
         id={name}
       />
+      {!!touched && !!error && <div style={{ color: 'red' }}>{error}</div>}
     </div>
   )
 }
