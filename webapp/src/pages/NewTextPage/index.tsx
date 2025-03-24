@@ -1,6 +1,6 @@
+import { zCreateEventTrpcInput } from '@home/backend/src/router/createEvent/input'
 import { useFormik } from 'formik'
 import { withZodSchema } from 'formik-validator-zod'
-import { z } from 'zod'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
@@ -15,17 +15,7 @@ export const NewTextPage = () => {
       description: '',
       text: '',
     },
-    validate: withZodSchema(
-      z.object({
-        name: z.string().min(1, 'Заголовок пустой! :Р'),
-        nick: z
-          .string()
-          .min(1)
-          .regex(/^[a-z0-9-]+$/, 'Тут можно только маленькие буквы, числа и дефисы'),
-        description: z.string().min(1, 'Описание пустое!  :Р'),
-        text: z.string().min(100, 'Текст не может быть меньше 100 буковок :Р'),
-      })
-    ),
+    validate: withZodSchema(zCreateEventTrpcInput),
     onSubmit: async (values) => {
       await createText.mutateAsync(values)
     },

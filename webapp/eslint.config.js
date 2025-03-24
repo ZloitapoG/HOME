@@ -31,8 +31,19 @@ export default [
       // Отключаем правило, требующее импорт React в каждом файле (актуально для React 17+)
       'react/react-in-jsx-scope': 'off',
 
-      // Закомментированное правило для доступности (можно раскомментировать, если нужно)
-      // 'jsx-a11y/anchor-is-valid': 'off',
+      // Правило для ограничения импортов из бэкенда
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@home/backend/**', '!@home/backend/**/', '!@home/backend/**/input'],
+              allowTypeImports: true,
+              message: 'Из бэкенда можно импортировать только типы и входные схемы',
+            },
+          ],
+        },
+      ],
     },
   },
 
