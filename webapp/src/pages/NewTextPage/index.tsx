@@ -4,8 +4,10 @@ import { z } from 'zod'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
+import { trpc } from '../../lib/trpc'
 
 export const NewTextPage = () => {
+  const createText = trpc.createEvent.useMutation()
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -24,8 +26,8 @@ export const NewTextPage = () => {
         text: z.string().min(100, 'Текст не может быть меньше 100 буковок :Р'),
       })
     ),
-    onSubmit: (values) => {
-      console.info('Засубмичено', values)
+    onSubmit: async (values) => {
+      await createText.mutateAsync(values)
     },
   })
   return (
