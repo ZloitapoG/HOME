@@ -1,0 +1,28 @@
+// Подключаем файлы с переменными и миксинами из указанных путей
+@use '../../styles/vars' as *; // Переменные (например, цвета, шрифты и т.д.)
+@use '../../styles/mixins' as *; // Миксины (например, готовые стили для заголовков, ссылок и т.д.)
+
+.button {
+  padding: 8px 15px;
+  color: $white;
+  background-color: #0a980a;
+  border: none;
+  font-weight: bold;
+  border-radius: $borderRadiusSmall;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background-color: #21b821;
+  }
+
+  &:active {
+    background-color: #39d039;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: #929292;
+    color: #d9d9d9;
+  }
+}
