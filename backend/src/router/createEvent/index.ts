@@ -1,11 +1,17 @@
-import { news } from '../../lib/events.js'
 import { trpc } from '../../lib/trpc.js'
 import { zCreateEventTrpcInput } from './input.js'
 
-export const createEventTrpcRoute = trpc.procedure.input(zCreateEventTrpcInput).mutation(({ input }) => {
-  if (news.find((text) => text.nick === input.nick)) {
+export const createEventTrpcRoute = trpc.procedure.input(zCreateEventTrpcInput).mutation(async ({ input, ctx }) => {
+  const exText = await ctx.prisma.event.findUnique({
+    where: {
+      nick: input.nick,
+    },
+  })
+  if (exText) {
     throw Error('Баян!')
   }
-  news.unshift(input)
+  await ctx.prisma.event.create({
+    data: input,
+  })
   return true
 })

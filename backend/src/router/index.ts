@@ -4,6 +4,7 @@ import { createEventTrpcRoute } from './createEvent/index.js'
 import { getNewsTrpcRoute } from './getNews/index.js'
 import { getTextTrpcRoute } from './getText/index.js'
 // @endindex
+
 export const trpcRouter = trpc.router({
   // @index('./**/index.ts', f => `${f.path.split('/').slice(0, -1).pop()}: ${f.path.split('/').slice(0, -1).pop()}TrpcRoute,`)
   createEvent: createEventTrpcRoute,

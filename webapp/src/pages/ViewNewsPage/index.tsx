@@ -1,3 +1,5 @@
+import { format } from 'date-fns/format'
+import { Fragment } from 'react/jsx-runtime'
 import { useParams } from 'react-router-dom'
 import { Segment } from '../../components/Segment'
 import { type ViewNewsRouteParams } from '../../lib/routes'
@@ -23,7 +25,16 @@ export const ViewNewsPage = () => {
 
   return (
     <Segment title={data.text.name} description={data.text.description}>
-      <div className={css.text} dangerouslySetInnerHTML={{ __html: data.text.text }} />
+      <div className={css.createdAt}>Зделано: {format(data.text.createAt, 'yyyy-MM-dd')}</div>
+      <div className={css.text}>
+        {data.text?.text?.split('\n').map((line, i, lines) => (
+          <Fragment key={i}>
+            {line}
+            {i < lines.length - 1 && <br />}
+          </Fragment>
+        ))}
+      </div>
     </Segment>
   )
 }
+//<div className={css.text} dangerouslySetInnerHTML={{ __html: data.text.text }} />

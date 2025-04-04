@@ -1,7 +1,17 @@
-import _ from 'lodash'
-import { news } from '../../lib/events.js'
 import { trpc } from '../../lib/trpc.js'
 
-export const getNewsTrpcRoute = trpc.procedure.query(() => {
-  return { news: news.map((text) => _.pick(text, ['nick', 'name', 'description'])) }
+export const getNewsTrpcRoute = trpc.procedure.query(async ({ ctx }) => {
+  const news = await ctx.prisma.event.findMany({
+    select: {
+      id: true,
+      nick: true,
+      name: true,
+      description: true,
+      createAt: true,
+    },
+    orderBy: {
+      createAt: 'desc',
+    },
+  })
+  return { news }
 })
