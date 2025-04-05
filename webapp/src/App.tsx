@@ -4,6 +4,7 @@ import * as routes from './lib/routes'
 import { TrpcProvider } from './lib/trpc'
 import { AllTextPage } from './pages/AllTextPage'
 import { NewTextPage } from './pages/NewTextPage'
+import { SignUpPage } from './pages/SignUpPage'
 import { ViewNewsPage } from './pages/ViewNewsPage'
 import './styles/global.scss'
 
@@ -13,6 +14,7 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
+            <Route path={routes.setSignUpRoute()} element={<SignUpPage />} />
             <Route path={routes.getAllTextPageRoute()} element={<AllTextPage />} />
             <Route path={routes.getViewNewsPageRoute(routes.viewNewsRouteParams)} element={<ViewNewsPage />} />
             <Route path={routes.getNewTextRoute()} element={<NewTextPage />} />

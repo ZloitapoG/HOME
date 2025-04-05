@@ -3,6 +3,7 @@ import { trpc } from '../lib/trpc.js'
 import { createEventTrpcRoute } from './createEvent/index.js'
 import { getNewsTrpcRoute } from './getNews/index.js'
 import { getTextTrpcRoute } from './getText/index.js'
+import { signUpTrpcRoute } from './signUp/index.js'
 // @endindex
 
 export const trpcRouter = trpc.router({
@@ -10,6 +11,7 @@ export const trpcRouter = trpc.router({
   createEvent: createEventTrpcRoute,
   getNews: getNewsTrpcRoute,
   getText: getTextTrpcRoute,
+  signUp: signUpTrpcRoute,
   // @endindex
 })
 

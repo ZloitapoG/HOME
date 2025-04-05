@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
-import { getAllTextPageRoute, getNewTextRoute } from '../../lib/routes'
+import { getAllTextPageRoute, getNewTextRoute, setSignUpRoute } from '../../lib/routes'
 import css from './index.module.scss'
 
 export const Layout = () => {
@@ -16,6 +16,11 @@ export const Layout = () => {
           <li className={css.item}>
             <Link className={css.link} to={getNewTextRoute()}>
               Add Event!
+            </Link>
+          </li>
+          <li className={css.item}>
+            <Link className={css.link} to={setSignUpRoute()}>
+              Заходим сюда
             </Link>
           </li>
         </ul>

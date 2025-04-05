@@ -9,6 +9,4 @@ export const getViewNewsPageRoute = ({ home }: ViewNewsRouteParams) => `/news/${
 
 export const getNewTextRoute = () => '/news/new'
 
-//export const viewNewsRouteParams = { home: ':home' }
-//export type ViewNewsRouteParams = { home: string }
-//export const getViewNewsPageRoute = ({ home }: { home: string }) => `/news/${home}`
+export const setSignUpRoute = () => '/sign-up'
