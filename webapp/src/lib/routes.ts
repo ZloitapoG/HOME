@@ -10,3 +10,4 @@ export const getViewNewsPageRoute = ({ home }: ViewNewsRouteParams) => `/news/${
 export const getNewTextRoute = () => '/news/new'
 
 export const setSignUpRoute = () => '/sign-up'
+export const setSignInRoute = () => '/sign-in'
