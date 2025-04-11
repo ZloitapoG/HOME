@@ -15,6 +15,7 @@ import { trpc } from '../../lib/trpc'
 
 export const SignUpPage = () => {
   const navigate = useNavigate()
+  const trpcUtils = trpc.useUtils()
   //const [successMessageVisible, setSuccessMessageVisible] = useState(false)
   const [submittingError, setSubmittingError] = useState<string | null>(null)
   const signUp = trpc.signUp.useMutation()
@@ -44,6 +45,7 @@ export const SignUpPage = () => {
         setSubmittingError(null)
         const { token } = await signUp.mutateAsync(values)
         Cookies.set('token', token, { expires: 99999 })
+        void trpcUtils.invalidate()
         navigate(getAllTextPageRoute())
         // await signUp.mutateAsync(values)
         //formik.resetForm()

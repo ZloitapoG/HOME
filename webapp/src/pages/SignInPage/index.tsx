@@ -14,6 +14,7 @@ import { trpc } from '../../lib/trpc'
 
 export const SignInPage = () => {
   const navigate = useNavigate()
+  const trpcUtils = trpc.useUtils()
   //const [successMessageVisible, setSuccessMessageVisible] = useState(false)
   const [submittingError, setSubmittingError] = useState<string | null>(null)
   const signIn = trpc.signIn.useMutation()
@@ -28,6 +29,7 @@ export const SignInPage = () => {
         setSubmittingError(null)
         const { token } = await signIn.mutateAsync(values)
         Cookies.set('token', token, { expires: 99999 })
+        void trpcUtils.invalidate()
         navigate(getAllTextPageRoute())
         //formik.resetForm()
         //setSuccessMessageVisible(true)

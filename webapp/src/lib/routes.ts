@@ -11,3 +11,4 @@ export const getNewTextRoute = () => '/news/new'
 
 export const setSignUpRoute = () => '/sign-up'
 export const setSignInRoute = () => '/sign-in'
+export const setSignOutRoute = () => '/sign-out'
