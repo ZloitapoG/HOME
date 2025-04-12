@@ -6,6 +6,7 @@ import eslintReact from 'eslint-plugin-react'
 import pluginReact from 'eslint-plugin-react'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
+import pluginNode from 'eslint-plugin-node'
 
 export default [
   {
@@ -20,6 +21,7 @@ export default [
       react: eslintReact,
       prettier: prettierPlugin,
       import: pluginImport,
+      node: pluginNode,
     },
   },
   {
@@ -45,6 +47,7 @@ export default [
           },
         },
       ],
+      'node/no-process-env': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/strict-boolean-expressions': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
