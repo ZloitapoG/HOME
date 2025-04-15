@@ -8,17 +8,20 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  nick String @unique
-  password String
-  createdAt DateTime @default(now())
+  id         String    @id @default(uuid())
+  nick       String    @unique
+  password   String
+  createdAt  DateTime  @default(now())
+  events     Event[]
 }
 
 model Event {
-  id          String @id @default(uuid())
-  nick        String @unique
+  id          String  @id @default(uuid())
+  nick        String  @unique
   name        String
   description String
   text        String
-  createAt DateTime @default(now())
+  createAt    DateTime @default(now())
+  authorID    String
+  author      User     @relation(fields: [authorID], references: [id]) 
 }

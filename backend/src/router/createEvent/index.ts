@@ -2,6 +2,9 @@ import { trpc } from '../../lib/trpc.js'
 import { zCreateEventTrpcInput } from './input.js'
 
 export const createEventTrpcRoute = trpc.procedure.input(zCreateEventTrpcInput).mutation(async ({ input, ctx }) => {
+  if (!ctx.me) {
+    throw Error('Не авторизован, чёрт!')
+  }
   const exText = await ctx.prisma.event.findUnique({
     where: {
       nick: input.nick,
@@ -11,7 +14,7 @@ export const createEventTrpcRoute = trpc.procedure.input(zCreateEventTrpcInput).
     throw Error('Баян!')
   }
   await ctx.prisma.event.create({
-    data: input,
+    data: { ...input, authorID: ctx.me.id },
   })
   return true
 })

@@ -12,6 +12,14 @@ export const getTextTrpcRoute = trpc.procedure
       where: {
         nick: input.home,
       },
+      include: {
+        author: {
+          select: {
+            id: true,
+            nick: true,
+          },
+        },
+      },
     })
     return { text }
   })

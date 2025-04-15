@@ -26,6 +26,7 @@ export const ViewNewsPage = () => {
   return (
     <Segment title={data.text.name} description={data.text.description}>
       <div className={css.createdAt}>Зделано: {format(data.text.createAt, 'yyyy-MM-dd')}</div>
+      <div className={css.author}>Аффтор: {data.text.author.nick}</div>
       <div className={css.text}>
         {data.text?.text?.split('\n').map((line, i, lines) => (
           <Fragment key={i}>
