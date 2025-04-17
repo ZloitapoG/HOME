@@ -3,6 +3,7 @@ import { Layout } from './components/Layout'
 import * as routes from './lib/routes'
 import { TrpcProvider } from './lib/trpc'
 import { AllTextPage } from './pages/AllTextPage'
+import { EditTextPage } from './pages/EditTextPage'
 import { NewTextPage } from './pages/NewTextPage'
 import { SignInPage } from './pages/SignInPage'
 import { SignOutPage } from './pages/SignOutPage'
@@ -22,6 +23,7 @@ export const App = () => {
             <Route path={routes.getAllTextPageRoute()} element={<AllTextPage />} />
             <Route path={routes.getNewTextRoute()} element={<NewTextPage />} />
             <Route path={routes.getViewNewsPageRoute(routes.viewNewsRouteParams)} element={<ViewNewsPage />} />
+            <Route path={routes.getEditTextPageRoute(routes.editTextRouteParams)} element={<EditTextPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -7,6 +7,10 @@ export const viewNewsRouteParams = getRouteParams({ home: true })
 export type ViewNewsRouteParams = typeof viewNewsRouteParams
 export const getViewNewsPageRoute = ({ home }: ViewNewsRouteParams) => `/news/${home}`
 
+export const editTextRouteParams = getRouteParams({ home: true })
+export type EditTextRouteParams = typeof viewNewsRouteParams
+export const getEditTextPageRoute = ({ home }: EditTextRouteParams) => `/news/${home}/edit`
+
 export const getNewTextRoute = () => '/news/new'
 
 export const setSignUpRoute = () => '/sign-up'
