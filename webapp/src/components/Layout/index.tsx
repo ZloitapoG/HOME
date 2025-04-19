@@ -1,19 +1,11 @@
-import { Link, Navigate, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
+import { useMe } from '../../lib/ctx'
 import { getAllTextPageRoute, getNewTextRoute, setSignUpRoute, setSignInRoute, setSignOutRoute } from '../../lib/routes'
-import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
 
 export const Layout = () => {
-  const { data, isLoading, isFetching, isError } = trpc.getMe.useQuery()
+  const me = useMe()
 
-  const location = useLocation()
-
-  if (isLoading || isFetching) {
-    return <div className={css.layout}>Загрузка...</div>
-  }
-  if (!data?.me && !['/sign-in', '/sign-up'].includes(location.pathname)) {
-    return <Navigate to={setSignInRoute()} replace />
-  }
   return (
     <div className={css.layout}>
       <div className={css.navigation}>
@@ -24,7 +16,7 @@ export const Layout = () => {
               Дом
             </Link>
           </li>
-          {isLoading || isFetching || isError ? null : data.me ? (
+          {me ? (
             <>
               <li className={css.item}>
                 <Link className={css.link} to={getNewTextRoute()}>
@@ -33,7 +25,7 @@ export const Layout = () => {
               </li>
               <li className={css.item}>
                 <Link className={css.link} to={setSignOutRoute()}>
-                  Выходим ({data.me.nick})
+                  Выходим ({me.nick})
                 </Link>
               </li>
             </>

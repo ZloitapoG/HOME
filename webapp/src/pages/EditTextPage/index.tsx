@@ -8,6 +8,7 @@ import { FormItems } from '../../components/FormItem'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
+import { useMe } from '../../lib/ctx'
 import { useForm } from '../../lib/form'
 import { type EditTextRouteParams, getViewNewsPageRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
@@ -48,11 +49,9 @@ export const EditTextPage = () => {
   const getTextResult = trpc.getText.useQuery({
     home,
   })
-  const getMeResult = trpc.getMe.useQuery(undefined, {
-    refetchOnMount: false,
-  })
+  const me = useMe()
 
-  if (getTextResult.isLoading || getTextResult.isFetching || getMeResult.isLoading || getMeResult.isFetching) {
+  if (getTextResult.isLoading || getTextResult.isFetching) {
     return <span>Loading...</span>
   }
 
@@ -60,16 +59,11 @@ export const EditTextPage = () => {
     return <span>Error: {getTextResult.error.message}</span>
   }
 
-  if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>
-  }
-
   if (!getTextResult.data.text) {
     return <span>Idea not found</span>
   }
 
   const event = getTextResult.data.text
-  const me = getMeResult.data.me
 
   if (!me) {
     return <span>Only for authorized</span>
