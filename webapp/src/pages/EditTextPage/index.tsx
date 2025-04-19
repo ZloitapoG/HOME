@@ -1,9 +1,6 @@
 import type { TrpcRouterOutput } from '@home/backend/src/router'
 import { zUpdateEventTrpcInput } from '@home/backend/src/router/updateEvent/input'
-import { useFormik } from 'formik'
-import { withZodSchema } from 'formik-validator-zod'
 import pick from 'lodash/pick'
-import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
@@ -11,26 +8,22 @@ import { FormItems } from '../../components/FormItem'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
+import { useForm } from '../../lib/form'
 import { type EditTextRouteParams, getViewNewsPageRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
 const EditEventComponent = ({ event }: { event: NonNullable<TrpcRouterOutput['getText']['text']> }) => {
   const navigate = useNavigate()
-  const [submittingError, setSubmittingError] = useState<string | null>(null)
   const updateEvent = trpc.updateEvent.useMutation()
-  const formik = useFormik({
+  const { formik, buttonProps, alertProps } = useForm({
     initialValues: pick(event, ['name', 'nick', 'description', 'text']),
-    validate: withZodSchema(zUpdateEventTrpcInput.omit({ eventId: true })),
+    validationSchema: zUpdateEventTrpcInput.omit({ eventId: true }),
     onSubmit: async (values) => {
-      try {
-        setSubmittingError(null)
-        await updateEvent.mutateAsync({ eventId: event.id, ...values })
-        navigate(getViewNewsPageRoute({ home: values.nick }))
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-        setSubmittingError(err.message)
-      }
+      await updateEvent.mutateAsync({ eventId: event.id, ...values })
+      navigate(getViewNewsPageRoute({ home: values.nick }))
     },
+    resetOnSuccess: false,
+    showValidationAlert: true,
   })
 
   return (
@@ -41,9 +34,8 @@ const EditEventComponent = ({ event }: { event: NonNullable<TrpcRouterOutput['ge
           <Input label="Nick" name="nick" formik={formik} />
           <Input label="Description" name="description" maxWidth={500} formik={formik} />
           <Textarea label="Text" name="text" formik={formik} />
-          {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
-          {submittingError && <Alert color="red">{submittingError}</Alert>}
-          <Button loading={formik.isSubmitting}>Update Idea</Button>
+          <Alert {...alertProps} />
+          <Button {...buttonProps}>Поменять событие</Button>
         </FormItems>
       </form>
     </Segment>
