@@ -6,9 +6,12 @@ import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
 import { useForm } from '../../lib/form'
+import { withPageWrapper } from '../../lib/pageWrapper'
 import { trpc } from '../../lib/trpc'
 
-export const NewTextPage = () => {
+export const NewTextPage = withPageWrapper({
+  authorizedOnly: true,
+})(() => {
   const createText = trpc.createEvent.useMutation()
   const { formik, buttonProps, alertProps } = useForm({
     initialValues: {
@@ -44,4 +47,4 @@ export const NewTextPage = () => {
       </form>
     </Segment>
   )
-}
+})

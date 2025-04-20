@@ -1,4 +1,3 @@
-import type { TrpcRouterOutput } from '@home/backend/src/router'
 import { zUpdateEventTrpcInput } from '@home/backend/src/router/updateEvent/input'
 import pick from 'lodash/pick'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -8,12 +7,25 @@ import { FormItems } from '../../components/FormItem'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { Textarea } from '../../components/Textarea'
-import { useMe } from '../../lib/ctx'
 import { useForm } from '../../lib/form'
+import { withPageWrapper } from '../../lib/pageWrapper'
 import { type EditTextRouteParams, getViewNewsPageRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
-const EditEventComponent = ({ event }: { event: NonNullable<TrpcRouterOutput['getText']['text']> }) => {
+export const EditTextPage = withPageWrapper({
+  authorizedOnly: true,
+  useQuery: () => {
+    const { home } = useParams() as EditTextRouteParams
+    return trpc.getText.useQuery({ home })
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.text,
+  checkExistsMessage: 'Новостей нет!',
+  checkAccess: ({ queryResult, ctx }) => !!ctx.me && ctx.me.id === queryResult.data.text?.authorID,
+  checkAccessMessage: 'Эту новость может редактировать только автор!',
+  setProps: ({ queryResult }) => ({
+    event: queryResult.data.text!,
+  }),
+})(({ event }) => {
   const navigate = useNavigate()
   const updateEvent = trpc.updateEvent.useMutation()
   const { formik, buttonProps, alertProps } = useForm({
@@ -41,37 +53,4 @@ const EditEventComponent = ({ event }: { event: NonNullable<TrpcRouterOutput['ge
       </form>
     </Segment>
   )
-}
-
-export const EditTextPage = () => {
-  const { home } = useParams() as EditTextRouteParams
-
-  const getTextResult = trpc.getText.useQuery({
-    home,
-  })
-  const me = useMe()
-
-  if (getTextResult.isLoading || getTextResult.isFetching) {
-    return <span>Loading...</span>
-  }
-
-  if (getTextResult.isError) {
-    return <span>Error: {getTextResult.error.message}</span>
-  }
-
-  if (!getTextResult.data.text) {
-    return <span>Idea not found</span>
-  }
-
-  const event = getTextResult.data.text
-
-  if (!me) {
-    return <span>Only for authorized</span>
-  }
-
-  if (me.id !== event.authorID) {
-    return <span>An idea can only be edited by the author</span>
-  }
-
-  return <EditEventComponent event={event} />
-}
+})
