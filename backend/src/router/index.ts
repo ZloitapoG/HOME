@@ -1,23 +1,23 @@
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import { trpc } from '../lib/trpc.js'
 // @index('./**/index.ts', f => `import { ${f.path.split('/').slice(0, -1).pop()}TrpcRoute } from '${f.path.split('/').slice(0, -1).join('/')}/index.js'`)
-import { createEventTrpcRoute } from './createEvent/index.js'
-import { getMeTrpcRoute } from './getMe/index.js'
-import { getNewsTrpcRoute } from './getNews/index.js'
-import { getTextTrpcRoute } from './getText/index.js'
-import { signInTrpcRoute } from './signIn/index.js'
-import { signUpTrpcRoute } from './signUp/index.js'
-import { updateEventTrpcRoute } from './updateEvent/index.js'
+import { getMeTrpcRoute } from './auth/getMe/index.js'
+import { signInTrpcRoute } from './auth/signIn/index.js'
+import { signUpTrpcRoute } from './auth/signUp/index.js'
+import { createEventTrpcRoute } from './events/createEvent/index.js'
+import { getNewsTrpcRoute } from './events/getNews/index.js'
+import { getTextTrpcRoute } from './events/getText/index.js'
+import { updateEventTrpcRoute } from './events/updateEvent/index.js'
 // @endindex
 
 export const trpcRouter = trpc.router({
   // @index('./**/index.ts', f => `${f.path.split('/').slice(0, -1).pop()}: ${f.path.split('/').slice(0, -1).pop()}TrpcRoute,`)
-  createEvent: createEventTrpcRoute,
   getMe: getMeTrpcRoute,
-  getNews: getNewsTrpcRoute,
-  getText: getTextTrpcRoute,
   signIn: signInTrpcRoute,
   signUp: signUpTrpcRoute,
+  createEvent: createEventTrpcRoute,
+  getNews: getNewsTrpcRoute,
+  getText: getTextTrpcRoute,
   updateEvent: updateEventTrpcRoute,
   // @endindex
 })
