@@ -22,9 +22,13 @@ export const EditTextPage = withPageWrapper({
   checkExistsMessage: 'Новостей нет!',
   checkAccess: ({ queryResult, ctx }) => !!ctx.me && ctx.me.id === queryResult.data.text?.authorID,
   checkAccessMessage: 'Эту новость может редактировать только автор!',
-  setProps: ({ queryResult }) => ({
-    event: queryResult.data.text!,
-  }),
+  setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
+    const event = checkExists(queryResult.data.text, 'Событий нет!')
+    checkAccess(ctx.me?.id === event.authorID, 'Менять новости могут не только лиш все')
+    return {
+      event,
+    }
+  },
 })(({ event }) => {
   const navigate = useNavigate()
   const updateEvent = trpc.updateEvent.useMutation()

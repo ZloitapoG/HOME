@@ -15,10 +15,8 @@ export const ViewNewsPage = withPageWrapper({
       home,
     })
   },
-  checkExists: ({ queryResult }) => !!queryResult.data.text,
-  checkExistsMessage: 'Событий нет',
-  setProps: ({ queryResult, ctx }) => ({
-    event: queryResult.data.text!,
+  setProps: ({ queryResult, checkExists, ctx }) => ({
+    event: checkExists(queryResult.data.text, 'Таких новостей у нас еще не было'),
     me: ctx.me,
   }),
 })(({ event, me }) => (
