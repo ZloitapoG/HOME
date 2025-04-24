@@ -12,7 +12,7 @@ export type EditTextRouteParams = typeof viewNewsRouteParams
 export const getEditTextPageRoute = ({ home }: EditTextRouteParams) => `/news/${home}/edit`
 
 export const getNewTextRoute = () => '/news/new'
-
+export const getEditProfileRoute = () => '/edit-profile'
 export const setSignUpRoute = () => '/sign-up'
 export const setSignInRoute = () => '/sign-in'
 export const setSignOutRoute = () => '/sign-out'

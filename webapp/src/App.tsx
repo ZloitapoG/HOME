@@ -3,6 +3,7 @@ import { Layout } from './components/Layout'
 import { AppContextProvider } from './lib/ctx'
 import * as routes from './lib/routes'
 import { TrpcProvider } from './lib/trpc'
+import { EditProfilePage } from './pages/auth/EditProfilePage'
 import { SignInPage } from './pages/auth/SignInPage'
 import { SignOutPage } from './pages/auth/SignOutPage'
 import { SignUpPage } from './pages/auth/SignUpPage'
@@ -25,6 +26,7 @@ export const App = () => {
               <Route path={routes.setSignInRoute()} element={<SignInPage />} />
               <Route path={routes.getAllTextPageRoute()} element={<AllTextPage />} />
               <Route path={routes.getNewTextRoute()} element={<NewTextPage />} />
+              <Route path={routes.getEditProfileRoute()} element={<EditProfilePage />} />
               <Route path={routes.getViewNewsPageRoute(routes.viewNewsRouteParams)} element={<ViewNewsPage />} />
               <Route path={routes.getEditTextPageRoute(routes.editTextRouteParams)} element={<EditTextPage />} />
               <Route path="*" element={<NotFoundPage />} />

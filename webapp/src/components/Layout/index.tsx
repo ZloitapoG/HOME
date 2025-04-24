@@ -1,6 +1,13 @@
 import { Link, Outlet } from 'react-router-dom'
 import { useMe } from '../../lib/ctx'
-import { getAllTextPageRoute, getNewTextRoute, setSignUpRoute, setSignInRoute, setSignOutRoute } from '../../lib/routes'
+import {
+  getAllTextPageRoute,
+  getNewTextRoute,
+  setSignUpRoute,
+  setSignInRoute,
+  setSignOutRoute,
+  getEditProfileRoute,
+} from '../../lib/routes'
 import css from './index.module.scss'
 
 export const Layout = () => {
@@ -21,6 +28,11 @@ export const Layout = () => {
               <li className={css.item}>
                 <Link className={css.link} to={getNewTextRoute()}>
                   Добавить событие
+                </Link>
+              </li>
+              <li className={css.item}>
+                <Link className={css.link} to={getEditProfileRoute()}>
+                  Поправить личку
                 </Link>
               </li>
               <li className={css.item}>

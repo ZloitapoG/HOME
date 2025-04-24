@@ -22,7 +22,9 @@ export const ViewNewsPage = withPageWrapper({
 })(({ event, me }) => (
   <Segment title={event.name} description={event.description}>
     <div className={css.createdAt}>Зделано: {format(event.createAt, 'yyyy-MM-dd')}</div>
-    <div className={css.author}>Аффтор: {event.author.nick}</div>
+    <div className={css.author}>
+      Аффтор: {event.author.nick} {event.author.name ? ` (${event.author.name})` : '(лосось)'}
+    </div>
     <div className={css.text}>
       {event?.text?.split('\n').map((line, i, lines) => (
         <Fragment key={i}>
