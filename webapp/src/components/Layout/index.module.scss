@@ -69,7 +69,6 @@ $breakpoint: '<=900px';
     // Адаптация для экранов <= 900px
     @include media($breakpoint) {
       overflow: visible; // Убираем прокрутку
-      flex: 0 0 auto; // Отключаем растягивание
       height: auto; // Высота автоматическая
     }
   }
