@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearchPostgres"]
 }
 
 datasource db {
@@ -8,22 +9,35 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  nick      String   @unique
-  name      String   @default("")
-  password  String
-  createdAt DateTime @default(now())
-  events    Event[]
+  id          String      @id @default(uuid())
+  nick        String      @unique
+  name        String      @default("")
+  password    String
+  createdAt   DateTime    @default(now())
+  events      Event[]
+  eventsLikes EventLike[]
 }
 
 model Event {
-  id           String   @id @default(uuid())
-  nick         String   @unique
-  serialNumder Int      @unique @default(autoincrement())
+  id           String      @id @default(uuid())
+  nick         String      @unique
+  serialNumder Int         @unique @default(autoincrement())
   name         String
   description  String
   text         String
-  createAt     DateTime @default(now())
+  createAt     DateTime    @default(now())
   authorID     String
-  author       User     @relation(fields: [authorID], references: [id])
+  author       User        @relation(fields: [authorID], references: [id])
+  eventsLikes  EventLike[]
+}
+
+model EventLike {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@unique([eventId, userId])
 }

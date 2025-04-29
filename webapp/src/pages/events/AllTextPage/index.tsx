@@ -1,18 +1,27 @@
+import { zGetIdeasTrpcInput } from '@home/backend/src/router/events/getNews/input'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Link } from 'react-router-dom'
+import { useDebounceValue } from 'usehooks-ts'
 import { Alert } from '../../../components/Alert'
+import { Input } from '../../../components/Input'
 import { layoutContentElRef } from '../../../components/Layout'
 import { Loader } from '../../../components/Loader'
 import { Segment } from '../../../components/Segment'
+import { useForm } from '../../../lib/form'
 import { getViewNewsPageRoute } from '../../../lib/routes'
 import { trpc } from '../../../lib/trpc'
 import css from './index.module.scss'
 
 export const AllTextPage = () => {
+  const { formik } = useForm({
+    initialValues: { search: '' },
+    validationSchema: zGetIdeasTrpcInput.pick({ search: true }),
+  })
+  const [search] = useDebounceValue(formik.values.search, 500) // 500ms задержка
   const { data, error, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage, isRefetching } =
     trpc.getNews.useInfiniteQuery(
       {
-        limit: 2,
+        search,
       },
       {
         getNextPageParam: (lastPage) => {
@@ -22,10 +31,15 @@ export const AllTextPage = () => {
     )
   return (
     <Segment title="Home, sweet home">
+      <div className={css.filter}>
+        <Input maxWidth={'100%'} label="Найти" name="search" formik={formik} />
+      </div>
       {isLoading || isRefetching ? (
         <Loader type="section" />
       ) : isError ? (
         <Alert color="red">{error.message}</Alert>
+      ) : !data.pages[0].events.length ? (
+        <Alert color="brown">Ничего не нашел</Alert>
       ) : (
         <div className={css.news}>
           <InfiniteScroll
@@ -45,7 +59,7 @@ export const AllTextPage = () => {
             useWindow={(layoutContentElRef.current && getComputedStyle(layoutContentElRef.current).overflow) !== 'auto'}
           >
             {data.pages
-              .flatMap((page) => page.news)
+              .flatMap((page) => page.events)
               .map((text) => (
                 <div className={css.text} key={text.nick}>
                   <Segment
@@ -56,7 +70,9 @@ export const AllTextPage = () => {
                       </Link>
                     }
                     description={text.description}
-                  />
+                  >
+                    Одобрение: {text.likesCount}
+                  </Segment>
                 </div>
               ))}
           </InfiniteScroll>

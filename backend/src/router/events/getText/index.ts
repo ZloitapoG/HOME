@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { z } from 'zod'
 import { trpc } from '../../../lib/trpc.js'
 
@@ -8,7 +9,7 @@ export const getTextTrpcRoute = trpc.procedure
     })
   )
   .query(async ({ ctx, input }) => {
-    const text = await ctx.prisma.event.findUnique({
+    const rawText = await ctx.prisma.event.findUnique({
       where: {
         nick: input.home,
       },
@@ -20,7 +21,23 @@ export const getTextTrpcRoute = trpc.procedure
             name: true,
           },
         },
+        eventsLikes: {
+          select: {
+            id: true,
+          },
+          where: {
+            userId: ctx.me?.id,
+          },
+        },
+        _count: {
+          select: {
+            eventsLikes: true,
+          },
+        },
       },
     })
+    const isLikedByMe = !!rawText?.eventsLikes.length
+    const likesCount = rawText?._count.eventsLikes || 0
+    const text = rawText && { ..._.omit(rawText, ['eventsLikes', '_count']), isLikedByMe, likesCount }
     return { text }
   })

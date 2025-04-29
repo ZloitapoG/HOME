@@ -10,6 +10,11 @@
 @mixin link($color: $blue, $hoverColor: $red) {
   color: $color; // Цвет текста по умолчанию (используется переменная $blue)
   transition: color 200ms ease; // Плавное изменение цвета текста за 200 мс
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
 
   // Стили для состояний :hover и :active
   &:hover,

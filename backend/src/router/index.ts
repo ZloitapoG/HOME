@@ -9,6 +9,7 @@ import { updateProfileTrpcRoute } from './auth/updateProfile/index.js'
 import { createEventTrpcRoute } from './events/createEvent/index.js'
 import { getNewsTrpcRoute } from './events/getNews/index.js'
 import { getTextTrpcRoute } from './events/getText/index.js'
+import { setEventLikeTrpcRoute } from './events/setEventLike/index.js'
 import { updateEventTrpcRoute } from './events/updateEvent/index.js'
 // @endindex
 
@@ -22,6 +23,7 @@ export const trpcRouter = trpc.router({
   createEvent: createEventTrpcRoute,
   getNews: getNewsTrpcRoute,
   getText: getTextTrpcRoute,
+  setEventLike: setEventLikeTrpcRoute,
   updateEvent: updateEventTrpcRoute,
   // @endindex
 })
