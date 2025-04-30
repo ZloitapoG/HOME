@@ -1,4 +1,5 @@
 import { zUpdateEventTrpcInput } from '@home/backend/src/router/events/updateEvent/input'
+import { canEditEvent } from '@home/backend/src/utils/can'
 import pick from 'lodash/pick'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Alert } from '../../../components/Alert'
@@ -24,7 +25,7 @@ export const EditTextPage = withPageWrapper({
   checkAccessMessage: 'Эту новость может редактировать только автор!',
   setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
     const event = checkExists(queryResult.data.text, 'Событий нет!')
-    checkAccess(ctx.me?.id === event.authorID, 'Менять новости могут не только лиш все')
+    checkAccess(canEditEvent(ctx.me, event), 'Менять новости могут не только лиш все')
     return {
       event,
     }

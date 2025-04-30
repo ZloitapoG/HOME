@@ -1,4 +1,5 @@
 import { trpc } from '../../../lib/trpc.js'
+import { canEditEvent } from '../../../utils/can.js'
 import { zUpdateEventTrpcInput } from './input.js'
 
 export const updateEventTrpcRoute = trpc.procedure.input(zUpdateEventTrpcInput).mutation(async ({ ctx, input }) => {
@@ -14,7 +15,7 @@ export const updateEventTrpcRoute = trpc.procedure.input(zUpdateEventTrpcInput).
   if (!event) {
     throw new Error('NOT_FOUND')
   }
-  if (ctx.me.id !== event.authorID) {
+  if (!canEditEvent(ctx.me, event)) {
     throw new Error('NOT_YOUR_IDEA')
   }
   if (event.nick !== input.nick) {

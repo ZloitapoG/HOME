@@ -1,5 +1,5 @@
 import type { TrpcRouterOutput } from '@home/backend/src/router'
-import { canBlockEvent } from '@home/backend/src/utils/can'
+import { canBlockEvent, canEditEvent } from '@home/backend/src/utils/can'
 import { format } from 'date-fns/format'
 import { Fragment } from 'react/jsx-runtime'
 import { useParams } from 'react-router-dom'
@@ -102,7 +102,7 @@ export const ViewNewsPage = withPageWrapper({
         </>
       )}
     </div>
-    {me?.id === event.authorID && (
+    {canEditEvent(me, event) && (
       <div className={css.editButton}>
         <LinkButton to={getEditTextPageRoute({ home: event.nick })}>Исправить косяк</LinkButton>
       </div>

@@ -7,11 +7,13 @@ import { env } from './lib/env.js'
 import { applyPassportToExpressApp } from './lib/passport.js'
 import { applyTrpcToExpressApp } from './lib/trpc.js'
 import { trpcRouter } from './router/index.js'
+import { presetDb } from './scripts/presetDb.js'
 
 void (async () => {
   let ctx: AppContext | null = null
   try {
     ctx = createAppContext()
+    await presetDb(ctx)
     const expressApp = express()
     expressApp.use(cors())
     expressApp.get('/ping', (req, res) => {
