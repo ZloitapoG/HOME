@@ -6,6 +6,7 @@ import { signInTrpcRoute } from './auth/signIn/index.js'
 import { signUpTrpcRoute } from './auth/signUp/index.js'
 import { updatePasswordTrpcRoute } from './auth/updatePassword/index.js'
 import { updateProfileTrpcRoute } from './auth/updateProfile/index.js'
+import { blockEventTrpcRoute } from './events/blockevent/index.js'
 import { createEventTrpcRoute } from './events/createEvent/index.js'
 import { getNewsTrpcRoute } from './events/getNews/index.js'
 import { getTextTrpcRoute } from './events/getText/index.js'
@@ -20,6 +21,7 @@ export const trpcRouter = trpc.router({
   signUp: signUpTrpcRoute,
   updatePassword: updatePasswordTrpcRoute,
   updateProfile: updateProfileTrpcRoute,
+  blockEvent: blockEventTrpcRoute,
   createEvent: createEventTrpcRoute,
   getNews: getNewsTrpcRoute,
   getText: getTextTrpcRoute,

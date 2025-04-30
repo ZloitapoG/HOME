@@ -1,3 +1,4 @@
+@use 'sass:color';
 // Подключаем файлы с переменными и миксинами из указанных путей
 @use '../../styles/vars' as *; // Переменные (например, цвета, шрифты и т.д.)
 @use '../../styles/mixins' as *; // Миксины (например, готовые стили для заголовков, ссылок и т.д.)
@@ -5,7 +6,6 @@
 .button {
   padding: 8px 15px;
   color: $white;
-  background-color: #0a980a;
   border: none;
   font-weight: bold;
   border-radius: $borderRadiusSmall;
@@ -13,12 +13,28 @@
   user-select: none;
   position: relative;
 
-  &:hover {
-    background-color: #21b821;
+  &.color-green {
+    background-color: #0a980a;
+
+    &:hover {
+      background-color: #21b821;
+    }
+
+    &:active {
+      background-color: #39d039;
+    }
   }
 
-  &:active {
-    background-color: #39d039;
+  &.color-red {
+    background-color: $red;
+
+    &:hover {
+      background-color: color.scale($red, $lightness: 10%);
+    }
+
+    &:active {
+      background-color: color.scale($red, $lightness: 30%);
+    }
   }
 
   &.disabled {

@@ -12,15 +12,18 @@ export const getNewsTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).query(a
       serialNumder: true,
       _count: { select: { eventsLikes: true } },
     },
-    where: !input.search
-      ? undefined
-      : {
-          OR: [
-            { name: { contains: input.search, mode: 'insensitive' } },
-            { description: { contains: input.search, mode: 'insensitive' } },
-            { text: { contains: input.search, mode: 'insensitive' } },
-          ],
-        },
+    where: {
+      blockedAt: null,
+      ...(!input.search
+        ? {}
+        : {
+            OR: [
+              { name: { contains: input.search, mode: 'insensitive' } },
+              { description: { contains: input.search, mode: 'insensitive' } },
+              { text: { contains: input.search, mode: 'insensitive' } },
+            ],
+          }),
+    },
     orderBy: [{ createAt: 'desc' }, { serialNumder: 'desc' }],
     cursor: input.cursor ? { serialNumder: input.cursor } : undefined,
     take: input.limit + 1,

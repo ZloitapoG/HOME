@@ -36,6 +36,9 @@ export const getTextTrpcRoute = trpc.procedure
         },
       },
     })
+    if (rawText?.blockedAt) {
+      throw new Error('Новость предками не одобрена')
+    }
     const isLikedByMe = !!rawText?.eventsLikes.length
     const likesCount = rawText?._count.eventsLikes || 0
     const text = rawText && { ..._.omit(rawText, ['eventsLikes', '_count']), isLikedByMe, likesCount }

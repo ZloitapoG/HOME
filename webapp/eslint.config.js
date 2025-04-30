@@ -37,7 +37,7 @@ export default [
         {
           patterns: [
             {
-              group: ['@home/backend/**', '!@home/backend/**/', '!@home/backend/**/input'],
+              group: ['@home/backend/**', '!@home/backend/**/', '!@home/backend/**/input', '!@home/backend/src/utils/can'],
               allowTypeImports: true,
               message: 'Из бэкенда можно импортировать только типы и входные схемы',
             },

@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearchPostgres"]
 }
 
@@ -9,13 +9,14 @@ datasource db {
 }
 
 model User {
-  id          String      @id @default(uuid())
-  nick        String      @unique
-  name        String      @default("")
+  id          String           @id @default(uuid())
+  nick        String           @unique
+  name        String           @default("")
   password    String
-  createdAt   DateTime    @default(now())
+  createdAt   DateTime         @default(now())
   events      Event[]
   eventsLikes EventLike[]
+  permissions UserPermission[]
 }
 
 model Event {
@@ -29,6 +30,12 @@ model Event {
   authorID     String
   author       User        @relation(fields: [authorID], references: [id])
   eventsLikes  EventLike[]
+  blockedAt    DateTime?
+}
+
+enum UserPermission {
+  BLOCK_EVENTS
+  ALL
 }
 
 model EventLike {

@@ -1,9 +1,13 @@
 import type { TrpcRouterOutput } from '@home/backend/src/router'
+import { canBlockEvent } from '@home/backend/src/utils/can'
 import { format } from 'date-fns/format'
 import { Fragment } from 'react/jsx-runtime'
 import { useParams } from 'react-router-dom'
-import { LinkButton } from '../../../components/Button'
+import { Alert } from '../../../components/Alert'
+import { Button, LinkButton } from '../../../components/Button'
+import { FormItems } from '../../../components/FormItem'
 import { Segment } from '../../../components/Segment'
+import { useForm } from '../../../lib/form'
 import { withPageWrapper } from '../../../lib/pageWrapper'
 import { getEditTextPageRoute, type ViewNewsRouteParams } from '../../../lib/routes'
 import { trpc } from '../../../lib/trpc'
@@ -37,8 +41,29 @@ const LikeButton = ({ event }: { event: NonNullable<TrpcRouterOutput['getText'][
         void setEventLike.mutateAsync({ eventId: event.id, isLikedByMe: !event.isLikedByMe })
       }}
     >
-      {event.isLikedByMe ? 'Unlike' : 'Like'}
+      {event.isLikedByMe ? 'Не одобряю' : 'Одобряю'}
     </button>
+  )
+}
+
+const BlockEvent = ({ event }: { event: NonNullable<TrpcRouterOutput['getText']['text']> }) => {
+  const blockEvent = trpc.blockEvent.useMutation()
+  const trpcUtils = trpc.useUtils()
+  const { formik, alertProps, buttonProps } = useForm({
+    onSubmit: async () => {
+      await blockEvent.mutateAsync({ eventId: event.id })
+      await trpcUtils.getText.refetch({ home: event.nick })
+    },
+  })
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <FormItems>
+        <Alert {...alertProps} />
+        <Button color="red" {...buttonProps}>
+          Block Idea
+        </Button>
+      </FormItems>
+    </form>
   )
 }
 
@@ -80,6 +105,11 @@ export const ViewNewsPage = withPageWrapper({
     {me?.id === event.authorID && (
       <div className={css.editButton}>
         <LinkButton to={getEditTextPageRoute({ home: event.nick })}>Исправить косяк</LinkButton>
+      </div>
+    )}
+    {canBlockEvent(me) && (
+      <div className={css.blockEvent}>
+        <BlockEvent event={event} />
       </div>
     )}
   </Segment>
