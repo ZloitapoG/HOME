@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { Alert } from '../../../components/Alert'
 import { Button, LinkButton } from '../../../components/Button'
 import { FormItems } from '../../../components/FormItem'
+import { Icon } from '../../../components/Icons'
 import { Segment } from '../../../components/Segment'
 import { useForm } from '../../../lib/form'
 import { withPageWrapper } from '../../../lib/pageWrapper'
@@ -41,7 +42,7 @@ const LikeButton = ({ event }: { event: NonNullable<TrpcRouterOutput['getText'][
         void setEventLike.mutateAsync({ eventId: event.id, isLikedByMe: !event.isLikedByMe })
       }}
     >
-      {event.isLikedByMe ? 'Не одобряю' : 'Одобряю'}
+      <Icon size={32} className={css.likeIcon} name={event.isLikedByMe ? 'likeFilled' : 'likeEmpty'} />
     </button>
   )
 }
