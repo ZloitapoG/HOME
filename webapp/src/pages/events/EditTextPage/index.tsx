@@ -30,6 +30,7 @@ export const EditTextPage = withPageWrapper({
       event,
     }
   },
+  title: ({ event }) => `Edit Event "${event.name}"`,
 })(({ event }) => {
   const navigate = useNavigate()
   const updateEvent = trpc.updateEvent.useMutation()

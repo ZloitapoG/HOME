@@ -1,5 +1,6 @@
 import { type UseTRPCQueryResult, type UseTRPCQuerySuccessResult } from '@trpc/react-query/shared'
 import React, { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import { ErrorPageComponent } from '../components/ErrorPageComponent/index'
 import { Loader } from '../components/Loader'
@@ -58,6 +59,8 @@ type PageWrapperProps<TProps extends Props, TQueryResult extends QueryResult | u
 
   showLoaderOnFetching?: boolean
 
+  title: string | ((titleProps: HelperProps<TQueryResult> & TProps) => string)
+  isTitleExact?: boolean
   useQuery?: () => TQueryResult
   setProps?: (setPropsProps: SetPropsProps<TQueryResult>) => TProps
   Page: React.FC<TProps>
@@ -80,6 +83,8 @@ const PageWrapper = <
   useQuery,
   setProps,
   Page,
+  title,
+  isTitleExact = false,
   showLoaderOnFetching = true,
 }: PageWrapperProps<TProps, TQueryResult>) => {
   const navigate = useNavigate()
@@ -135,7 +140,16 @@ const PageWrapper = <
       checkAccess: checkAccessFn,
       getAuthorizedMe,
     }) as TProps
-    return <Page {...props} />
+    const calculatedTitle = typeof title === 'function' ? title({ ...helperProps, ...props }) : title
+    const exactTitle = isTitleExact ? calculatedTitle : `${calculatedTitle} - Sweet Home`
+    return (
+      <>
+        <Helmet key={location.pathname}>
+          <title>{exactTitle}</title>
+        </Helmet>
+        <Page {...props} />
+      </>
+    )
   } catch (error) {
     if (error instanceof CheckExistsError) {
       return <ErrorPageComponent title={checkExistsTitle} message={error.message || checkExistsMessage} />

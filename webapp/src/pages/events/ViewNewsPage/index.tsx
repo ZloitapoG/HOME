@@ -79,6 +79,7 @@ export const ViewNewsPage = withPageWrapper({
     me: ctx.me,
   }),
   showLoaderOnFetching: false,
+  title: ({ event }) => event.name,
 })(({ event, me }) => (
   <Segment title={event.name} description={event.description}>
     <div className={css.createdAt}>Зделано: {format(event.createAt, 'yyyy-MM-dd')}</div>

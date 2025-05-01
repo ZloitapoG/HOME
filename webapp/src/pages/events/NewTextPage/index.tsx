@@ -11,6 +11,7 @@ import { trpc } from '../../../lib/trpc'
 
 export const NewTextPage = withPageWrapper({
   authorizedOnly: true,
+  title: 'New Event',
 })(() => {
   const createText = trpc.createEvent.useMutation()
   const { formik, buttonProps, alertProps } = useForm({

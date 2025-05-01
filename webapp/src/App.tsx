@@ -1,3 +1,4 @@
+import { HelmetProvider } from 'react-helmet-async'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { AppContextProvider } from './lib/ctx'
@@ -16,24 +17,26 @@ import './styles/global.scss'
 
 export const App = () => {
   return (
-    <TrpcProvider>
-      <AppContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path={routes.setSignOutRoute()} element={<SignOutPage />} />
-            <Route element={<Layout />}>
-              <Route path={routes.setSignUpRoute()} element={<SignUpPage />} />
-              <Route path={routes.setSignInRoute()} element={<SignInPage />} />
-              <Route path={routes.getAllTextPageRoute()} element={<AllTextPage />} />
-              <Route path={routes.getNewTextRoute()} element={<NewTextPage />} />
-              <Route path={routes.getEditProfileRoute()} element={<EditProfilePage />} />
-              <Route path={routes.getViewNewsPageRoute(routes.viewNewsRouteParams)} element={<ViewNewsPage />} />
-              <Route path={routes.getEditTextPageRoute(routes.editTextRouteParams)} element={<EditTextPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AppContextProvider>
-    </TrpcProvider>
+    <HelmetProvider>
+      <TrpcProvider>
+        <AppContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path={routes.setSignOutRoute()} element={<SignOutPage />} />
+              <Route element={<Layout />}>
+                <Route path={routes.setSignUpRoute()} element={<SignUpPage />} />
+                <Route path={routes.setSignInRoute()} element={<SignInPage />} />
+                <Route path={routes.getAllTextPageRoute()} element={<AllTextPage />} />
+                <Route path={routes.getNewTextRoute()} element={<NewTextPage />} />
+                <Route path={routes.getEditProfileRoute()} element={<EditProfilePage />} />
+                <Route path={routes.getViewNewsPageRoute(routes.viewNewsRouteParams)} element={<ViewNewsPage />} />
+                <Route path={routes.getEditTextPageRoute(routes.editTextRouteParams)} element={<EditTextPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </AppContextProvider>
+      </TrpcProvider>
+    </HelmetProvider>
   )
 }

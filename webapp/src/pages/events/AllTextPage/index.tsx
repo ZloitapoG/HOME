@@ -8,11 +8,15 @@ import { layoutContentElRef } from '../../../components/Layout'
 import { Loader } from '../../../components/Loader'
 import { Segment } from '../../../components/Segment'
 import { useForm } from '../../../lib/form'
+import { withPageWrapper } from '../../../lib/pageWrapper'
 import { getViewNewsPageRoute } from '../../../lib/routes'
 import { trpc } from '../../../lib/trpc'
 import css from './index.module.scss'
 
-export const AllTextPage = () => {
+export const AllTextPage = withPageWrapper({
+  title: 'Sweet Home',
+  isTitleExact: true,
+})(() => {
   const { formik } = useForm({
     initialValues: { search: '' },
     validationSchema: zGetIdeasTrpcInput.pick({ search: true }),
@@ -80,4 +84,4 @@ export const AllTextPage = () => {
       )}
     </Segment>
   )
-}
+})
