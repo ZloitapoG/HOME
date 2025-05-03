@@ -9,6 +9,7 @@ export const presetDb = async (ctx: AppContext) => {
     },
     create: {
       nick: 'admin',
+      email: 'admin@nevaflya@com',
       password: getPasswordHash(env.INITIAL_ADMIN_PASSWORD),
       permissions: ['ALL'],
     },

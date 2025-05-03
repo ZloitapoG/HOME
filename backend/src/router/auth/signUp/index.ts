@@ -4,17 +4,26 @@ import { signJWT } from '../../../utils/signJWT.js'
 import { zSignUpTrpcInput } from './input.js'
 
 export const signUpTrpcRoute = trpc.procedure.input(zSignUpTrpcInput).mutation(async ({ ctx, input }) => {
-  const exUser = await ctx.prisma.user.findUnique({
+  const exUserWithNick = await ctx.prisma.user.findUnique({
     where: {
       nick: input.nick,
     },
   })
-  if (exUser) {
-    throw new Error('User with this nick already exists')
+  if (exUserWithNick) {
+    throw new Error('Пользователь с таким ником уже есть...')
+  }
+  const exUserWithEmail = await ctx.prisma.user.findUnique({
+    where: {
+      email: input.email,
+    },
+  })
+  if (exUserWithEmail) {
+    throw new Error('Пользователь с таким мылом уже есть...')
   }
   const user = await ctx.prisma.user.create({
     data: {
       nick: input.nick,
+      email: input.email,
       password: getPasswordHash(input.password),
     },
   })
