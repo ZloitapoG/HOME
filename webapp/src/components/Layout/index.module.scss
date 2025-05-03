@@ -23,7 +23,7 @@ $breakpoint: '<=900px';
   .navigation {
     height: 100%; // Занимаем всю доступную высоту
     overflow: auto; // Добавляем прокрутку, если контент не помещается
-    flex: 0 0 200px; // Фиксированная ширина 200px, блок не растягивается и не сжимается
+    flex: 0 0 250px; // Фиксированная ширина 200px, блок не растягивается и не сжимается
     padding: 20px 30px; // Внутренние отступы
     border-right: 1px solid $black; // Правая граница черного цвета
 
@@ -38,9 +38,11 @@ $breakpoint: '<=900px';
 
     // Стили для логотипа
     .logo {
-      font-weight: bold; // Жирный шрифт
-      font-size: 20px; // Размер шрифта
-      margin-bottom: 10px; // Отступ снизу
+      padding-top: 2px;
+      width: 100%;
+      max-width: 190px;
+      height: 80;
+      margin-bottom: 15px;
     }
 
     // Стили для меню

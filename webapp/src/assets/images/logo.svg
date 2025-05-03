@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<svg width="190" height="80" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <symbol height="230" id="svg_18" width="600" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+   <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+   <g class="layer">
+    <title>Layer 1</title>
+    <polygon fill="#FF0000" id="svg_17" points="116.5,12.814926147460938 142.0533905029297,86.32876586914062 219.86563110351562,87.91445922851562 157.84625244140625,134.93421936035156 180.38348388671875,209.42807006835938 116.5,164.97402954101562 52.61651611328125,209.42807006835938 75.15373992919922,134.93421936035156 13.134357452392578,87.91445922851562 90.94660949707031,86.32876586914062 116.5,12.814926147460938 142.0533905029297,86.32876586914062 " stroke="#000000" stroke-width="5"/>
+    <polygon fill="#FF0000" id="svg_16"/>
+    <polygon fill="#FF0000" id="svg_15"/>
+    <polygon fill="#FF0000" id="svg_14"/>
+    <polygon fill="#FF0000" id="svg_13"/>
+    <text fill="#000000" font-family="serif" font-size="42" font-weight="bold" id="svg_12" stroke="#000000" stroke-width="0" text-anchor="middle" transform="matrix(1.57016 0 0 1.94368 -138.05 -200.874)" x="322.929868" xml:space="preserve" y="208.311987">Sweet Home</text>
+   </g>
+  </symbol>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <polygon cx="299.5" cy="236.5" fill="#FF0000" id="svg_3" orient="point" point="5" r="0" r2="0" shape="star" strokeWidth="5" strokecolor="#000000"/>
+  <polygon cx="166.5" cy="153.5" fill="#FF0000" id="svg_4" orient="point" point="5" r="0" r2="0" shape="star" strokeWidth="5" strokecolor="none"/>
+  <polygon cx="176.5" cy="152.5" fill="#FF0000" id="svg_5" orient="point" point="5" r="0" r2="0" shape="star" strokeWidth="5" strokecolor="none"/>
+  <polygon cx="170.5" cy="154.5" fill="#FF0000" id="svg_6" orient="point" point="5" r="0" r2="0" shape="star" strokeWidth="5" strokecolor="none"/>
+  <use id="svg_19" transform="matrix(0.342302 0 0 0.32802 0.0799735 0.291954)" x="-5.842799" xlink:href="#svg_18" y="9.145781"/>
+  <g id="svg_20"/>
+ </g>
+</svg>
