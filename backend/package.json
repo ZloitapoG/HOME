@@ -5,6 +5,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "dev.cmd",
+    "build-emails": "rimraf src/emails/dist && mkdirp src/emails/dist && mjml src/emails/[!_]*.mjml -o src/emails/dist",
+    "watch-emails": "mjml -w ./src/emails/[!_]*.mjml -o ./src/emails/dist",
     "build": "rimraf ./dist && tsc --build ./tsconfig.json",
     "start": "node ./dist/index.js",
     "pmd": "prisma migrate dev --schema=./src/prisma/schema.prisma",
@@ -26,6 +28,7 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
+    "mjml": "^4.15.3",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "superjson": "^2.2.2",

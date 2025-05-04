@@ -1,3 +1,5 @@
+"dev": "dev.cmd",
+сам cmd:
 @echo off
 :loop
 tsx ./src/index.ts
