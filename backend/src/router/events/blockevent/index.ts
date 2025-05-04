@@ -1,3 +1,4 @@
+import { sendEventBlockedEmail } from '../../../lib/emails.js'
 import { trpc } from '../../../lib/trpc.js'
 import { canBlockEvent } from '../../../utils/can.js'
 import { zBlockEventInput } from './input.js'
@@ -7,12 +8,15 @@ export const blockEventTrpcRoute = trpc.procedure.input(zBlockEventInput).mutati
   if (!canBlockEvent(ctx.me)) {
     throw new Error('PERMISSION_DENIED')
   }
-  const idea = await ctx.prisma.event.findUnique({
+  const event = await ctx.prisma.event.findUnique({
     where: {
       id: eventId,
     },
+    include: {
+      author: true,
+    },
   })
-  if (!idea) {
+  if (!event) {
     throw new Error('NOT_FOUND')
   }
   await ctx.prisma.event.update({
@@ -23,5 +27,6 @@ export const blockEventTrpcRoute = trpc.procedure.input(zBlockEventInput).mutati
       blockedAt: new Date(),
     },
   })
+  void sendEventBlockedEmail({ user: event.author, event })
   return true
 })
